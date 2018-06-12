@@ -16,6 +16,7 @@ namespace BlackJack {
 		public void ClearDealerData(Dealer dealer) {
 				dealer.Hand.Clear();
 				dealer.Score = 0;
+				
 		}
 
 	}

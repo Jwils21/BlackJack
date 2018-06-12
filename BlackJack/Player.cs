@@ -27,7 +27,7 @@ namespace BlackJack {
 			BetAmt = betAmt;
 		}
 
-		public void ClearData(Player player) {
+		public void ClearPlayerData(Player player) {
 			player.Hand.Clear();
 			player.Score = 0;
 			player.HasBlackJack = false;

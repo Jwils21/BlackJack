@@ -9,25 +9,27 @@ namespace BlackJack {
 	class CardDeck {
 		public List<string> Decks { get; set; }
 		public List<int> DrawnCards { get; set; }
-		//Get random numbers
+		public int NumOfDecks { get; set; }
+										   //Get random numbers
 		static Random rnd = new Random();
 
 		public void SetResetDeck() {
 			Decks.Clear();
-
-			//Generate cards for deck that are numbers
-			for(int i = 2;i < 11;i++) {
-				for(int NumofSuits = 1;NumofSuits < 5;NumofSuits++) {
-					Decks.Add(i.ToString());
+			for(int j = 0;j < NumOfDecks;j++) {
+				//Generate cards for deck that are numbers
+				for(int i = 2;i < 11;i++) {
+					for(int NumofSuits = 1;NumofSuits < 5;NumofSuits++) {
+						Decks.Add(i.ToString());
+					}
 				}
+
+				//Generate Face cards
+				string[] FaceCards = { "J", "Q", "K", "A" };
+				for(int i = 0;i < (FaceCards.Length);i++)
+					for(int NumofSuits = 1;NumofSuits < 5;NumofSuits++) {
+						Decks.Add(FaceCards[i]);
+					}
 			}
-
-			//Generate Face cards
-			string[] FaceCards = { "J", "Q", "K", "A" };
-			for(int i = 0;i < (FaceCards.Length);i++)
-				for(int NumofSuits = 1;NumofSuits < 5;NumofSuits++) {
-					Decks.Add(FaceCards[i]);
-				}
 		}
 
 		public string AddCard() {
@@ -35,18 +37,22 @@ namespace BlackJack {
 			int CardIdx;
 			string Card;
 			//Grab random number of a card
-			CardIdx = rnd.Next(0, 52);
+			CardIdx = rnd.Next(0, (52 * NumOfDecks));
 			//Test to see if that card has already been drawn
 			while(IsNewCard == false) {
 				IsNewCard = true;
 				foreach(int card in DrawnCards) {
 					if(CardIdx == card) {
 						IsNewCard = false;
-						CardIdx = rnd.Next(0, 52);
+						CardIdx = rnd.Next(52 * NumOfDecks);
 					}
 				}
 			}
 			DrawnCards.Add(CardIdx);
+			if(DrawnCards.Count >= (52 * NumOfDecks)) {
+				SetResetDeck();
+				DrawnCards.Clear();
+			}
 			//return the string of that card
 			return Card=Decks[CardIdx];
 		}
@@ -179,9 +185,16 @@ namespace BlackJack {
 			Console.WriteLine(CardOutline);
 		}
 
+		public CardDeck(int numOfDecks) {
+			Decks = new List<string>();
+			DrawnCards = new List<int>();
+			NumOfDecks = numOfDecks;
+		}
+
 		public CardDeck() {
 			Decks = new List<string>();
 			DrawnCards = new List<int>();
+			NumOfDecks = 1;
 		}
 
 		public bool EvaluateDealerHand(Dealer dealer) {
@@ -242,7 +255,7 @@ namespace BlackJack {
 							CurrScore += 1;
 						}
 					} else {
-						CurrScore = score;
+						CurrScore += score;
 					}
 				} else {
 					CurrScore += score;

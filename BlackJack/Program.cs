@@ -52,16 +52,14 @@ namespace BlackJack {
 				Players.Remove(player);
 			}
 			foreach(Player player in Players) {
-				player.ClearDealerData(player);
+				player.ClearPlayerData(player);
 			}
 			dealer.ClearDealerData(dealer);
-			//reset card deck
-			cardDecks.SetResetDeck();
 		}
 
 		static void Main(string[] args) {
 			//Initialize deck
-			CardDeck CardDecks = new CardDeck();
+			CardDeck CardDecks = new CardDeck(1);
 			CardDecks.SetResetDeck();
 
 			//Set up dealer
