@@ -36,8 +36,8 @@ namespace BlackJack {
 					}
 				} else {
 					if(player.HasBlackJack == true) {
-						player.BetAmt *= 2;
-						Console.WriteLine($"Winner Winner Chicken Dinner {player.Name}! You had blackjack and win {player.BetAmt}! That is double your bet.");
+						player.BetAmt *= 1.5;
+						Console.WriteLine($"Winner Winner Chicken Dinner {player.Name}! You had blackjack and win {player.BetAmt}! That is 1.5x your bet.");
 						player.Chips += player.BetAmt;
 					} else {
 						Console.WriteLine($"{player.Name}, you won {player.BetAmt} chips.");
@@ -131,6 +131,10 @@ namespace BlackJack {
 			string ContinueGame;
 			do {
 				PlayBlackJack(Players, dealer, CardDecks);
+				if(Players.Count() == 0) {
+					Console.WriteLine($"You have (all) lost. Game Over.");
+					break;
+				}
 				Console.WriteLine("Would you like to play again?");
 				ContinueGame = Console.ReadLine().ToLower();
 			} while(ContinueGame != "no");

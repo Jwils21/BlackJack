@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 namespace BlackJack {
 	public class Player: Dealer {
 		public String Name { get; set; }
-		public long Chips { get; set; }
-		public long BetAmt { get; set; }
+		public double Chips { get; set; }
+		public double BetAmt { get; set; }
 		public bool HasBlackJack { get; set; }
-
-
-
 
 		static void AddPlayer(Dictionary<string, long> PlayerDict, string PlayerName) {
 			PlayerDict.Add(PlayerName, 500);
