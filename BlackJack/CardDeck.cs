@@ -239,9 +239,11 @@ namespace BlackJack {
 			int AceCntr = 0;
 			foreach(int score in ScoreList) {
 				if (score == Ace) {
-					AceCntr++;
+					AceCntr++; 
 				}
 			}
+
+			ScoreList.OrderByDescending(i => i);
 
 			//Calculate the score
 			foreach(int score in ScoreList) {
